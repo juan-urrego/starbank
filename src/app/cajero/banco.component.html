@@ -1,0 +1,69 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Cliente</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>Cédula</label>
+                <div class="input-group">
+                    <input class="form-control" id="cedula" name="cedula" type="number" [(ngModel)]="cedula" >
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="submitModal()">Save</button>
+      </div>
+  </ng-template>
+
+
+<div class=" card">
+            <div class="card-header">
+                <h1>
+                    {{title}}
+                </h1>
+                <div class='row'>
+                    <div class='col-md-8'>
+                        <div class="row">
+                            <h2>{{sucursal.nombre}}</h2>
+                        </div>
+                      <div class='row'>
+                        <div class='col-md-4'>Direccion:</div>
+                        <div class='col-md-8'>{{sucursal.direccion}}</div>
+                      </div>
+                      <div class='row'>
+                        <div class='col-md-4'>Ciudad:</div>
+                        <div class='col-md-8'>{{sucursal.ciudad}}</div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>direccion</th>
+                                <th>Sucursal</th>
+                                <th><button class="btn-primary btn float-right" (click)="navegar()">Registrarse</button></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cajero of cajeros">
+                                <td>                                    
+                                            {{cajero.direccion}}                                  
+                                </td>                                
+                                <td>{{cajero.sucursal.nombre}}</td>
+                                <td><button class="btn-primary btn float-right" (click)="open(content,cajero.idCajero)">Ingresar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>

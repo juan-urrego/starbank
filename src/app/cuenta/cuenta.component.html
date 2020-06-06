@@ -1,0 +1,233 @@
+<ng-template #consignar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Consignaciones</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>Ingrese el valor a consignar</label>
+                <div class="input-group">
+                    <input class="form-control" type="number" min="10000" max="90000000000000000" step="10000"
+                        name="dineroConsignar" id="dineroConsignar" [(ngModel)]="dineroConsignar">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline-secondary mr-3"
+        style="width:80px"
+        (click)="atras()">
+  <i class="fa fa-chevron-left"></i> Back
+</button>
+        <button type="button" class="mr-3 btn btn-outline-primary" (click)="submitModal('consignacion')">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #retirar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Retirar dinero</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <label>Ingrese el valor a retirar del banco</label>
+                <div class="input-group">
+                    <input class="form-control" type="number" min="10000" max="90000000000000000" step="10000"
+                        name="dineroRetirar" id="dineroRetirar" [(ngModel)]="dineroRetirar">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline-secondary mr-3"
+        style="width:80px"
+        (click)="atras()">
+  <i class="fa fa-chevron-left"></i> Back
+</button>
+        <button type="button" class="mr-3 btn btn-outline-primary" (click)="submitModal('retirar')">Save</button>
+    </div>
+</ng-template>
+
+<ng-template #movimientos let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Movimientos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-primary" role="alert" *ngFor="let operacion of cuenta.operaciones">
+            <div class="row">
+                <h4>
+
+                    {{operacion.nombre}}
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="">Fecha:</label>
+                    </div>
+                <div class="col-md-6">
+                    <label for="">Hora:</label></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {{operacion.fecha}}
+                    </div>
+                <div class="col-md-6">
+                    {{operacion.hora}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-outline-secondary mr-3"
+        style="width:80px"
+        (click)="atras()">
+  <i class="fa fa-chevron-left"></i> Back
+</button>
+    </div>
+
+</ng-template>
+
+<ng-template #desactivar let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Movimientos</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+       
+        <button class="btn btn-outline-danger mr-3"
+        style="width:80px" *ngIf="cuenta.estado == 'Activada'"
+        (click)="submitModal('Desactivada')"><i class="fa fa-chevron-left"></i> Aceptar
+    </button>
+        <button class="btn btn-outline-danger mr-3"
+        style="width:80px" *ngIf="cuenta.estado == 'Desactivada'"
+        (click)="submitModal('Activada')">
+    <i class="fa fa-chevron-left"></i> Aceptar
+    </button>
+        <button class="btn btn-outline-secondary mr-3"
+        style="width:80px"
+        (click)="atras()">
+    <i class="fa fa-chevron-left"></i> cancelar
+    </button>
+    </div>
+
+    <div class="modal-footer">
+    </div>
+
+</ng-template>
+
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h1>
+            {{title}}
+        </h1>
+        <h2>Dirección del cajero: {{cajero.direccion}}</h2>
+        <div class='row'>
+            <h1>Informacion del cliente</h1>
+            <div class='col-md-8'>
+                <div class='row'>
+                    <div class='col-md-6'>Identificacion:</div>
+                    <div class='col-md-6'>{{cliente.idCliente}}</div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'>Nombre:</div>
+                    <div class='col-md-6'>{{cliente.nombre}}</div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'>Ocupacion:</div>
+                    <div class='col-md-6'>{{cliente.ocupacion}}</div>
+                </div>
+                <div class='row'>
+                    <div class='col-md-6'>Telefono:</div>
+                    <div class='col-md-6'>{{cliente.telefono}}</div>
+                </div>
+                <div *ngIf="cliente.personas.length == 1">
+                    <div class='row'>
+                        <div class='col-md-6'>Direccion:</div>
+                        <div class='col-md-6'>{{cliente.personas[0].direccion}}</div>
+                    </div>
+                </div>
+                <div *ngIf="cliente.empresas.length == 1">
+                    <div class='row'>
+                        <div class='col-md-6'>Nombre de Empresa:</div>
+                        <div class='col-md-6'>{{cliente.empresas[0].nombre}}</div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6'>Nit:</div>
+                        <div class='col-md-6'>{{cliente.empresas[0].nit}}</div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6'>Sector:</div>
+                        <div class='col-md-6'>{{cliente.empresas[0].sector}}</div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-6'>Direccion de la empresa:</div>
+                        <div class='col-md-6'>{{cliente.empresas[0].direccion}}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>numero de cuenta</th>
+                        <th>titular</th>
+                        <th>saldo</th>
+                        <th>estado</th>
+                        <th>tipo</th>
+                        <th><button class="btn-primary btn float-right" (click)="navegar()">Agregar nueva
+                                cuenta</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cuen of cliente.cuentas">
+                        <td>
+
+                            {{cuen.idCuenta}}
+
+                        </td>
+                        <td>{{cuen.titular}}</td>
+                        <td>{{cuen.saldo}}</td>
+                        <td>{{cuen.estado}}</td>
+                        <td>{{cuen.tipo}}</td>
+                        <td>
+                            <button class="btn btn-primary mr-2" [disabled]="cuen.estado == 'Desactivada'"
+                                (click)="open(consignar,cuen.idCuenta,'consignacion')">Consignar</button>
+                            <button class="btn btn-primary mr-2"
+                                (click)="open(retirar,cuen.idCuenta,'retiros')">Retirar</button>
+                            <button class="btn btn-primary mr-2"
+                                (click)="open(movimientos,cuen.idCuenta,'movimientos')">Movimientos</button>
+                            <button class="btn btn-primary mr-2" (click)="open(desactivar,cuen.idCuenta, 'Desactivada')" *ngIf="cuen.estado == 'Activada'">Desactivar</button>
+                            <button class="btn btn-primary mr-2" (click)="open(desactivar,cuen.idCuenta, 'Activada')" *ngIf="cuen.estado == 'Desactivada'">Activar</button>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-primary mr-2" (click)="atras()">Cerrar sesion</button>
+        </div>
+    </div>
+</div>
